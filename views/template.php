@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Thanks!</title>
+    <title>Email Form Test</title>
     <style>
         form label, input[type="submit"] {
             display: block;
@@ -10,9 +10,15 @@
             width: 300px;
             height: 100px;
         }
+        #error {
+            background-color: red;
+            border: 1px solid black;
+            padding: 5px;
+            color: white;
+        }
     </style>
 </head>
 <body>
-<h1>Thank you!</h1>
+<?php require __DIR__.'/../views/'.$view.'.php'; ?>
 </body>
 </html>

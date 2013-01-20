@@ -1,26 +1,17 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Email Form Test</title>
-    <style>
-        form label, input[type="submit"] {
-            display: block;
-        }
-        textarea {
-            width: 300px;
-            height: 100px;
-        }
-    </style>
-</head>
-<body>
-<p>Enter your information in the form below to send me a message!</p>
-<form method="post" action="process.php">
-    <label>Name: <input type="text" name="name" /></label>
-    <label>Email: <input type="text" name="email" /></label>
-    <label for="contact_message">Message:</label>
-    <textarea id="contact_message" name="message"></textarea>
+<?php
 
-    <input type="submit" value="Contact Me!" />
-</form>
-</body>
-</html>
+require __DIR__.'/../vendor/autoload.php';
+
+session_start();
+
+$error = false;
+$contact = new Model\Contact();
+
+$view = 'form';
+
+
+require __DIR__.'/../inc/form_check.php';
+
+$_SESSION['csrf'] = uniqid('csrf_token');
+
+require __DIR__.'/../views/template.php';
