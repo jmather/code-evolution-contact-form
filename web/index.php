@@ -1,17 +1,19 @@
 <?php
 
-require __DIR__.'/../vendor/autoload.php';
-
-session_start();
-
-$error = false;
-$contact = new Model\Contact();
-
-$view = 'form';
+use Symfony\Component\HttpFoundation\Request;
 
 
-require __DIR__.'/../inc/form_check.php';
+$app = require '../config/app.php';
 
-$_SESSION['csrf'] = uniqid('csrf_token');
+$app['contact_form'] = function() use ($app) {
+    $formBuilder = $app['form.factory']->createBuilder(new \Form\ContactForm(), $data);
+    $form = $formBuilder->getForm();
+    return $form;
+};
 
-require __DIR__.'/../views/template.php';
+$app->match('/', 'contact_form_controller:formAction')->method('GET|POST')->bind('home');
+
+$app->get('/thanks', 'contact_form_controller:thankYouAction')->bind('thank-you');
+
+
+$app->run();
